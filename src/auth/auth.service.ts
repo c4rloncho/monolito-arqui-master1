@@ -18,7 +18,6 @@ export class AuthService {
     async ValidateUser(loginUserDto: LoginUserDto): Promise<{ access_token: string }> {
         const user = await this.userRepository.findOne({ where: { email: loginUserDto.email }});
         if (user) {
-            console.log('usuario encontrado por email');
             if(await compare(loginUserDto.password, user.password)) { //contraseña correcta si es true
                 const payload = {id:user.id,name:user.name}
                return {
